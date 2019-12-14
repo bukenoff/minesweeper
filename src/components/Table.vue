@@ -1,26 +1,30 @@
 <template>
   <div class="table">
-    <Cell />
-    {{ mines }}
+    <Row
+      v-for="row in rows"
+      :key="row"
+      :row="mines_table[row]"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Cell from './Cell.vue';
+import Row from './Row.vue';
 
 export default Vue.extend({
   name: 'Table',
   props: {
-    mines: Array,
+    rows: Array,
+    cells: Array,
+    mines_table: Object,
   },
   components: {
-    Cell,
+    Row,
   },
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .table {
   width: 270px;

@@ -1,11 +1,15 @@
 <template>
   <div class="home">
-    <Table :mines="showMines" />
+    <Table
+      :rows="rows"
+      :cells="cells"
+      :mines_table="mines_table"
+    />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import { mapGetters } from 'vuex';
 import Table from '@/components/Table.vue';
 
 export default {
@@ -14,9 +18,11 @@ export default {
     Table,
   },
   computed: {
-    showMines() {
-      return Object.values(this.$store.state.mines);
-    },
+    ...mapGetters({
+      rows: 'mines/rows',
+      cells: 'mines/cells',
+      mines_table: 'mines/mines_table',
+    }),
   },
 };
 </script>

@@ -1,83 +1,53 @@
 import { createFinalTable } from '@/algorithm/createTable';
 
 const state: any = {
-  mines: createFinalTable(),
+  mines_table: createFinalTable(),
+  rows_count: 9,
+  cells_count: 9,
 };
 
 // getters
 const getters = {
-  // cartProducts: (state, getters, rootState) => {
-  //   return state.items.map(({ id, quantity }) => {
-  //     const product = rootState.products.all.find(product => product.id === id)
-  //     return {
-  //       title: product.title,
-  //       price: product.price,
-  //       quantity
-  //     }
-  //   })
-  // },
+  rows: (state: any) => (
+    [...new Array(state.rows_count)].map((val, i) => i)
+  ),
 
-  // cartTotalPrice: (state, getters) => {
-  //   return getters.cartProducts.reduce((total, product) => {
-  //     return total + product.price * product.quantity
-  //   }, 0)
-  // }
+  cells: (state: any) => (
+    [...new Array(state.cells_count)].map((val, i) => i)
+  ),
+
+  mines_table: (state: any) => (
+    state.mines_table
+  ),
 };
 
 // actions
 const actions = {
-  // checkout ({ commit, state }, products) {
-  //   const savedCartItems = [...state.items]
-  //   commit('setCheckoutStatus', null)
-  //   // empty cart
-  //   commit('setCartItems', { items: [] })
-  //   shop.buyProducts(
-  //     products,
-  //     () => commit('setCheckoutStatus', 'successful'),
-  //     () => {
-  //       commit('setCheckoutStatus', 'failed')
-  //       // rollback to the cart saved before sending the request
-  //       commit('setCartItems', { items: savedCartItems })
-  //     }
-  //   )
-  // },
-
-  // addProductToCart ({ state, commit }, product) {
-  //   commit('setCheckoutStatus', null)
-  //   if (product.inventory > 0) {
-  //     const cartItem = state.items.find(item => item.id === product.id)
-  //     if (!cartItem) {
-  //       commit('pushProductToCart', { id: product.id })
-  //     } else {
-  //       commit('incrementItemQuantity', cartItem)
-  //     }
-  //     // remove 1 item from stock
-  //     commit('products/decrementProductInventory', { id: product.id }, { root: true })
-  //   }
-  // }
+  openCell({ commit }: any, cell_position: any) {
+    commit('openCell', {
+      row: cell_position.row,
+      col: cell_position.col,
+    });
+  },
+  toggleFlagCell({ commit }: any, cell_position: any) {
+    commit('toggleFlagCell', {
+      row: cell_position.row,
+      col: cell_position.col,
+    });
+  },
 };
 
 // mutations
 const mutations = {
-  // pushProductToCart (state, { id }) {
-  //   state.items.push({
-  //     id,
-  //     quantity: 1
-  //   })
-  // },
+  openCell(state: any, cell_position: any) {
+    const { row, col } = cell_position;
+    state.mines_table[row][col].is_open = true;
+  },
 
-  // incrementItemQuantity (state, { id }) {
-  //   const cartItem = state.items.find(item => item.id === id)
-  //   cartItem.quantity++
-  // },
-
-  // setCartItems (state, { items }) {
-  //   state.items = items
-  // },
-
-  // setCheckoutStatus (state, status) {
-  //   state.checkoutStatus = status
-  // }
+  toggleFlagCell(state: any, cell_position: any) {
+    const { row, col } = cell_position;
+    state.mines_table[row][col].is_flagged = !state.mines_table[row][col].is_flagged;
+  },
 };
 
 export default {

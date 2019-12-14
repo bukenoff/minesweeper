@@ -21,7 +21,7 @@ export const createInitialTable = (
         position: utils.setCellPosition(row_index, col_index),
         is_open: false,
         bombs_around: 0,
-        flagged: false,
+        is_flagged: false,
         neighbours: [],
       };
     });

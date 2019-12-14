@@ -20,7 +20,7 @@ export interface ICell {
   has_bomb: boolean;
   bombs_around: BombsAround;
   is_open: boolean;
-  flagged: boolean;
+  is_flagged: boolean;
   neighbours: [];
 }
 
