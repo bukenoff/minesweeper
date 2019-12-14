@@ -1,6 +1,12 @@
+/* eslint-disable no-unused-expressions */
 import { ITable, ICell } from '@/types';
 import utils from './utils';
 import { generateRandomIndexes } from './generateRandomIndexes';
+import { assignNeighbours } from './assignNeighbours';
+
+// const incrementNeighboursCounter = () => {
+
+// }
 
 export const createInitialTable = (
   rows: number = 9,
@@ -22,7 +28,7 @@ export const createInitialTable = (
         is_open: false,
         bombs_around: 0,
         is_flagged: false,
-        neighbours: [],
+        neighbours: assignNeighbours(row_index, col_index),
       };
     });
   });
@@ -35,6 +41,11 @@ const assignBombs = (table: ITable) => {
 
   random_indexes.forEach((index) => {
     const [row, col] = index.split('').map(str => +str);
+
+    const { neighbours } = table[row][col];
+    neighbours.forEach((n) => {
+      table[n.row][n.col].bombs_around += 1;
+    });
 
     table[row][col].has_bomb = true;
   });

@@ -7,10 +7,24 @@ export type CellPosition =
   'LOWERMOST_RIGHT' |
   'LEFTMOST' |
   'RIGHTMOST' |
-  'MIDDLE'
-;
+  'MIDDLE';
 
-type BombsAround = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export enum CellPositions {
+  UPPERMOST = 'UPPERMOST',
+  UPPERMOST_RIGHT = 'UPPERMOST_RIGHT',
+  UPPERMOST_LEFT = 'UPPERMOST_LEFT',
+  LOWERMOST = 'LOWERMOST',
+  LOWERMOST_LEFT = 'LOWERMOST_LEFT',
+  LOWERMOST_RIGHT = 'LOWERMOST_RIGHT',
+  LEFTMOST = 'LEFTMOST',
+  RIGHTMOST = 'RIGHTMOST',
+  MIDDLE = 'MIDDLE',
+}
+
+export interface INeighbour {
+  row: number;
+  col: number;
+}
 
 export interface ICell {
   id: string;
@@ -18,10 +32,10 @@ export interface ICell {
   col: number;
   position: CellPosition;
   has_bomb: boolean;
-  bombs_around: BombsAround;
+  bombs_around: number;
   is_open: boolean;
   is_flagged: boolean;
-  neighbours: [];
+  neighbours: INeighbour[];
 }
 
 export interface ITable {

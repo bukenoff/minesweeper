@@ -1,5 +1,5 @@
 <template>
-  <div
+  <button
     class="cell"
     :class="{
       open: cell.is_open,
@@ -8,11 +8,14 @@
     @click="handleOpenClick"
     @click.right.prevent="handleToggleFlagClick"
   >
-    {{ cell.bombs_around }}
-  </div>
+    <span v-if="cell.is_open">{{ cell.bombs_around ? cell.bombs_around : '' }}</span>
+    <img v-if="cell.has_bomb" src="@/assets/img/bomb.svg" />
+    <img v-if="cell.is_flagged" src="@/assets/img/flag.svg" />
+  </button>
 </template>
 
 <script lang="ts">
+/* eslint-disable no-unused-expressions */
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 
@@ -46,6 +49,7 @@ export default Vue.extend({
 
       return null;
     },
+
     handleToggleFlagClick() {
       const { is_open, col, row } = this.cell;
       if (is_open) {
@@ -81,6 +85,12 @@ export default Vue.extend({
   user-select: none;
   color: transparent;
   font-weight: bold;
+  outline: none;
+
+  & img {
+    width: 12px;
+    height: 12px;
+  }
 
   &:hover {
     background-color: #e5e5e5;
@@ -92,12 +102,12 @@ export default Vue.extend({
 
   &.open {
     background-color: #fefefe;
-    border-width: 0;
+    border: 1px solid #ccc;
     color: black;
+
   }
 
   &.flagged {
-    background-color: red;
   }
 }
 </style>

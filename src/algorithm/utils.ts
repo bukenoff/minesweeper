@@ -1,40 +1,40 @@
-import { CellPosition } from '@/types';
+import { CellPosition, CellPositions } from '@/types';
 import { CELL_POSITIONS as POSITIONS } from '@/constants/cellPostions';
 
 const setCellPosition = (row: number, col: number): CellPosition => {
   if (row === 0 && col === 0) {
-    return POSITIONS.UPPERMOST_LEFT;
+    return CellPositions.UPPERMOST_LEFT;
   }
 
   if (row === 0 && col === 8) {
-    return POSITIONS.UPPERMOST_RIGHT;
+    return CellPositions.UPPERMOST_RIGHT;
   }
 
   if (row === 8 && col === 0) {
-    return POSITIONS.LOWERMOST_LEFT;
+    return CellPositions.LOWERMOST_LEFT;
   }
 
   if (row === 8 && col === 8) {
-    return POSITIONS.LOWERMOST_RIGHT;
+    return CellPositions.LOWERMOST_RIGHT;
   }
 
   if (col === 0) {
-    return POSITIONS.LEFTMOST;
+    return CellPositions.LEFTMOST;
   }
 
   if (col === 8) {
-    return POSITIONS.RIGHTMOST;
+    return CellPositions.RIGHTMOST;
   }
 
   if (row === 0) {
-    return POSITIONS.UPPERMOST;
+    return CellPositions.UPPERMOST;
   }
 
   if (row === 8) {
-    return POSITIONS.LOWERMOST;
+    return CellPositions.LOWERMOST;
   }
 
-  return POSITIONS.MIDDLE;
+  return CellPositions.MIDDLE;
 };
 
 
