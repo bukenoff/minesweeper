@@ -1,6 +1,10 @@
 <template>
   <div class="row">
-    <Cell v-for="cell in Object.values(row)" :key="cell.id" :cell="cell" />
+    <Cell
+      v-for="cell in cells"
+      :key="cell.id"
+      :cell="row[cell]"
+    />
   </div>
 </template>
 
@@ -12,6 +16,7 @@ export default Vue.extend({
   name: 'Row',
   props: {
     row: Object,
+    cells: Array,
   },
   components: {
     Cell,

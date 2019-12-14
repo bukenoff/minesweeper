@@ -4,6 +4,7 @@
       v-for="row in rows"
       :key="row"
       :row="mines_table[row]"
+      :cells="cells"
     />
   </div>
 </template>
