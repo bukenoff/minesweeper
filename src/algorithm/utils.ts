@@ -1,5 +1,4 @@
 import { CellPosition, CellPositions } from '@/types';
-import { CELL_POSITIONS as POSITIONS } from '@/constants/cellPostions';
 
 const setCellPosition = (row: number, col: number): CellPosition => {
   if (row === 0 && col === 0) {

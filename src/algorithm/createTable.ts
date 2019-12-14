@@ -4,15 +4,11 @@ import utils from './utils';
 import { generateRandomIndexes } from './generateRandomIndexes';
 import { assignNeighbours } from './assignNeighbours';
 
-// const incrementNeighboursCounter = () => {
-
-// }
-
 export const createInitialTable = (
   rows: number = 9,
   cols: number = 9,
   bombs: number = 9,
-) => {
+): ITable => {
   const table: ITable = {};
 
   [...new Array(rows)].forEach((row, row_index) => {
@@ -36,7 +32,7 @@ export const createInitialTable = (
   return table;
 };
 
-const assignBombs = (table: ITable) => {
+const assignBombs = (table: ITable): void => {
   const random_indexes = generateRandomIndexes(9, 9, 9);
 
   random_indexes.forEach((index) => {
@@ -51,7 +47,7 @@ const assignBombs = (table: ITable) => {
   });
 };
 
-export const createFinalTable = () => {
+export const createFinalTable = (): ITable => {
   const table = createInitialTable(9, 9, 9);
   assignBombs(table);
 
