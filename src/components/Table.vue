@@ -6,7 +6,10 @@
       :row="mines_table[row]"
       :cols="cols"
     />
-    <span v-if="game_over" class="game-over-overlay">game over</span>
+    <span v-if="game_over" class="game-over-overlay">
+      <h1>game over</h1>
+      <button type="button">start again</button>
+    </span>
   </div>
 </template>
 
@@ -52,11 +55,20 @@ export default Vue.extend({
     background-color: rgba(0,0,0,0.5);
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
     font-weight: bold;
     user-select: none;
+
+    & button {
+      text-transform: capitalize;
+      padding: 0.25rem;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
   }
 }
 </style>

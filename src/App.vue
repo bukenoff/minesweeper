@@ -15,12 +15,21 @@
   padding: 0;
 }
 
+:root {
+  --white: #F5F5F5;
+  --yellow: #F18F01;
+  --black: #0F0F0F;
+  --green: #679436;
+  --red: #F95738;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: #0F0F0F;
+  min-height: 100vh;
 }
 
 #nav {

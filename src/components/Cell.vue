@@ -119,11 +119,11 @@ export default Vue.extend({
   }
 
   &.flagged {
-    background-color: green;
+    background-color: var(--green);
   }
 
   &.exploded {
-    background-color: red;
+    background-color: var(--red);
   }
 }
 </style>

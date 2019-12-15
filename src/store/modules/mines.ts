@@ -10,6 +10,10 @@ const state: IMinesState = {
 
 // getters
 const getters = {
+  // purpose of rows and cols getters
+  // is to be able to render contents of table
+  // by having array of indexes,
+  // this way we won't have to mess around with Object.values/keys
   rows: (state: IMinesState) => (
     [...new Array(state.rows_count)].map((val, i) => i)
   ),
@@ -101,6 +105,10 @@ const mutations = {
   toggleFlagCell(state: IMinesState, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
     state.mines_table[row][col].is_flagged = !state.mines_table[row][col].is_flagged;
+  },
+
+  generateTable(state: IMinesState) {
+    state.mines_table = createFinalTable();
   },
 };
 

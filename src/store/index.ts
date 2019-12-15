@@ -14,6 +14,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    startOver({ commit }: any) {
+      commit('setGameStatus', false);
+      commit('generateTable');
+    },
   },
   modules: {
     mines,
