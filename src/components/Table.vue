@@ -1,16 +1,18 @@
 <template>
-  <div class="table">
+  <div class="table" :class="{ game_over: game_over }">
     <Row
       v-for="row in rows"
       :key="row"
       :row="mines_table[row]"
       :cols="cols"
     />
+    <span v-if="game_over" class="game-over-overlay">game over</span>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
 import Row from './Row.vue';
 
 export default Vue.extend({
@@ -23,6 +25,11 @@ export default Vue.extend({
   components: {
     Row,
   },
+  computed: {
+    ...mapState({
+      game_over: 'game_over',
+    }),
+  },
 });
 </script>
 
@@ -33,5 +40,23 @@ export default Vue.extend({
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
+}
+
+.game_over {
+  position: relative;
+
+  .game-over-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    user-select: none;
+  }
 }
 </style>

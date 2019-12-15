@@ -9,6 +9,9 @@ export default new Vuex.Store({
     game_over: false,
   },
   mutations: {
+    setGameStatus(state: any, status) {
+      state.game_over = status;
+    },
   },
   actions: {
   },

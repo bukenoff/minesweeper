@@ -4,12 +4,15 @@
     :class="{
       open: cell.is_open,
       flagged: cell.is_flagged,
+      exploded: cell.is_open && cell.has_bomb,
     }"
     @click="handleOpenClick"
     @click.right.prevent="handleToggleFlagClick"
   >
-    <span v-if="cell.is_open">{{ cell.bombs_around ? cell.bombs_around : '' }}</span>
-    <img v-if="cell.has_bomb" src="@/assets/img/bomb.svg" />
+    <span v-if="cell.is_open">
+      {{ cell.bombs_around && !cell.has_bomb ? cell.bombs_around : '' }}
+    </span>
+    <img v-if="cell.has_bomb && cell.is_open" src="@/assets/img/bomb.svg" />
     <img v-if="cell.is_flagged" src="@/assets/img/flag.svg" />
   </button>
 </template>
@@ -30,6 +33,7 @@ export default Vue.extend({
       openEmptyCell: 'mines/openEmptyCell',
       toggleFlagCell: 'mines/toggleFlagCell',
     }),
+
     handleOpenClick() {
       const {
         is_open,
@@ -115,6 +119,11 @@ export default Vue.extend({
   }
 
   &.flagged {
+    background-color: green;
+  }
+
+  &.exploded {
+    background-color: red;
   }
 }
 </style>

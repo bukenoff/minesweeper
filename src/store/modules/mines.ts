@@ -27,11 +27,18 @@ const getters = {
 const actions = {
   openCell({ commit }: any, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
+    const this_cell = state.mines_table[row][col];
+
+    if (this_cell.has_bomb) {
+      commit('setGameStatus', true, { root: true });
+    }
 
     commit('openCell', {
       row,
       col,
     });
+
+    return null;
   },
 
   openEmptyCell({ commit }: any, cell_position: { row: number, col: number }) {
