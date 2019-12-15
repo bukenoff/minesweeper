@@ -27,6 +27,7 @@ export default Vue.extend({
   methods: {
     ...mapActions({
       openCell: 'mines/openCell',
+      openEmptyCell: 'mines/openEmptyCell',
       toggleFlagCell: 'mines/toggleFlagCell',
     }),
     handleOpenClick() {
@@ -34,6 +35,7 @@ export default Vue.extend({
         is_open,
         col, row,
         is_flagged,
+        bombs_around,
       } = this.cell;
 
       if (is_open || is_flagged) {
@@ -44,6 +46,11 @@ export default Vue.extend({
         col,
         row,
       };
+
+      if (bombs_around === 0) {
+        this.openEmptyCell(cell_position);
+        return null;
+      }
 
       this.openCell(cell_position);
 

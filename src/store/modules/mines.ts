@@ -1,5 +1,5 @@
 import { createFinalTable } from '@/algorithm/createTable';
-import { IMinesState } from '@/types';
+import { IMinesState, ITable } from '@/types';
 
 const state: IMinesState = {
   mines_table: createFinalTable(),
@@ -62,6 +62,33 @@ const mutations = {
 
   openEmptyCell(state: IMinesState, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
+
+    const openRecursively = (table: ITable, row: number, col: number): null => {
+      // stop recursion if cell is open
+      if (table[row][col].is_open) {
+        return null;
+      }
+
+      // stop recursion if cell contains bombs around it
+      if (table[row][col].bombs_around) {
+        table[row][col].is_open = true;
+        return null;
+      }
+
+      table[row][col].is_open = true;
+
+      const { neighbours } = table[row][col];
+      // recursive case
+      neighbours.forEach((n, i) => {
+        setTimeout(() => {
+          openRecursively(table, n.row, n.col);
+        }, 100 * i);
+      });
+
+      return null;
+    };
+
+    openRecursively(state.mines_table, row, col);
   },
 
   toggleFlagCell(state: IMinesState, cell_position: { row: number, col: number }) {
