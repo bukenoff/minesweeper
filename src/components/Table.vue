@@ -70,7 +70,7 @@ export default Vue.extend({
     position: absolute;
     height: 100%;
     width: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.75);
     color: white;
     display: flex;
     flex-direction: column;
@@ -87,6 +87,14 @@ export default Vue.extend({
       cursor: pointer;
       border: none;
       outline: none;
+      background-color: var(--green);
+      color: var(--white);
+      font-weight: bold;
+      transition: transform 0.25s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
     }
   }
 }

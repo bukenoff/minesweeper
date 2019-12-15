@@ -1,21 +1,26 @@
 <template>
   <div class="home">
-    <Table
-      :rows="rows"
-      :cols="cols"
-      :mines_table="mines_table"
-    />
+    <div class="game">
+      <Panel />
+      <Table
+        :rows="rows"
+        :cols="cols"
+        :mines_table="mines_table"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import Table from '@/components/Table.vue';
+import Panel from '@/components/Panel.vue';
 
 export default {
   name: 'home',
   components: {
     Table,
+    Panel,
   },
   computed: {
     ...mapGetters({
@@ -26,3 +31,16 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.home {
+  display: flex;
+  justify-content: center;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+}
+</style>
