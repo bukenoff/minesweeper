@@ -40,6 +40,7 @@ export default Vue.extend({
         col, row,
         is_flagged,
         bombs_around,
+        has_bomb,
       } = this.cell;
 
       if (is_open || is_flagged) {
@@ -51,7 +52,7 @@ export default Vue.extend({
         row,
       };
 
-      if (bombs_around === 0) {
+      if (bombs_around === 0 && !has_bomb) {
         this.openEmptyCell(cell_position);
         return null;
       }
