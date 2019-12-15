@@ -45,6 +45,16 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .table {
   width: 270px;
   height: 270px;
@@ -69,6 +79,7 @@ export default Vue.extend({
     text-transform: uppercase;
     font-weight: bold;
     user-select: none;
+    animation: appear 0.5s 1;
 
     & button {
       text-transform: capitalize;
