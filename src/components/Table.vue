@@ -8,14 +8,14 @@
     />
     <span v-if="game_over" class="game-over-overlay">
       <h1>game over</h1>
-      <button type="button">start again</button>
+      <button @click="handleStartClick" type="button">start again</button>
     </span>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Row from './Row.vue';
 
 export default Vue.extend({
@@ -32,6 +32,14 @@ export default Vue.extend({
     ...mapState({
       game_over: 'game_over',
     }),
+  },
+  methods: {
+    ...mapActions({
+      startOver: 'startOver',
+    }),
+    handleStartClick() {
+      this.startOver();
+    },
   },
 });
 </script>
