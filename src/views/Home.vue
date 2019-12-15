@@ -2,7 +2,7 @@
   <div class="home">
     <Table
       :rows="rows"
-      :cells="cells"
+      :cols="cols"
       :mines_table="mines_table"
     />
   </div>
@@ -20,7 +20,7 @@ export default {
   computed: {
     ...mapGetters({
       rows: 'mines/rows',
-      cells: 'mines/cells',
+      cols: 'mines/cols',
       mines_table: 'mines/mines_table',
     }),
   },

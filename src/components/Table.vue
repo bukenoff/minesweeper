@@ -4,7 +4,7 @@
       v-for="row in rows"
       :key="row"
       :row="mines_table[row]"
-      :cells="cells"
+      :cols="cols"
     />
   </div>
 </template>
@@ -17,7 +17,7 @@ export default Vue.extend({
   name: 'Table',
   props: {
     rows: Array,
-    cells: Array,
+    cols: Array,
     mines_table: Object,
   },
   components: {

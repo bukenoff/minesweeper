@@ -1,9 +1,9 @@
 <template>
   <div class="row">
     <Cell
-      v-for="cell in cells"
-      :key="cell.id"
-      :cell="row[cell]"
+      v-for="col in cols"
+      :key="row[col].id"
+      :cell="row[col]"
     />
   </div>
 </template>
@@ -16,7 +16,7 @@ export default Vue.extend({
   name: 'Row',
   props: {
     row: Object,
-    cells: Array,
+    cols: Array,
   },
   components: {
     Cell,

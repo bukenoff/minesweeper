@@ -1,50 +1,70 @@
 import { createFinalTable } from '@/algorithm/createTable';
+import { IMinesState } from '@/types';
 
-const state: any = {
+const state: IMinesState = {
   mines_table: createFinalTable(),
   rows_count: 9,
-  cells_count: 9,
+  cols_count: 9,
+  bombs_count: 9,
 };
 
 // getters
 const getters = {
-  rows: (state: any) => (
+  rows: (state: IMinesState) => (
     [...new Array(state.rows_count)].map((val, i) => i)
   ),
 
-  cells: (state: any) => (
-    [...new Array(state.cells_count)].map((val, i) => i)
+  cols: (state: IMinesState) => (
+    [...new Array(state.cols_count)].map((val, i) => i)
   ),
 
-  mines_table: (state: any) => (
+  mines_table: (state: IMinesState) => (
     state.mines_table
   ),
 };
 
 // actions
 const actions = {
-  openCell({ commit }: any, cell_position: any) {
+  openCell({ commit }: any, cell_position: { row: number, col: number }) {
+    const { row, col } = cell_position;
+
     commit('openCell', {
-      row: cell_position.row,
-      col: cell_position.col,
+      row,
+      col,
     });
   },
+
+  openEmptyCell({ commit }: any, cell_position: { row: number, col: number }) {
+    const { row, col } = cell_position;
+
+    commit('openEmptyCell', {
+      row,
+      col,
+    });
+  },
+
   toggleFlagCell({ commit }: any, cell_position: any) {
+    const { row, col } = cell_position;
+
     commit('toggleFlagCell', {
-      row: cell_position.row,
-      col: cell_position.col,
+      row,
+      col,
     });
   },
 };
 
 // mutations
 const mutations = {
-  openCell(state: any, cell_position: any) {
+  openCell(state: IMinesState, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
     state.mines_table[row][col].is_open = true;
   },
 
-  toggleFlagCell(state: any, cell_position: any) {
+  openEmptyCell(state: IMinesState, cell_position: { row: number, col: number }) {
+    const { row, col } = cell_position;
+  },
+
+  toggleFlagCell(state: IMinesState, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
     state.mines_table[row][col].is_flagged = !state.mines_table[row][col].is_flagged;
   },

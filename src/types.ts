@@ -43,3 +43,10 @@ export interface ITable {
     [col: number]: ICell;
   }
 }
+
+export interface IMinesState {
+  mines_table: ITable;
+  rows_count: 9 | 16;
+  cols_count: 9 | 16 | 30;
+  bombs_count: 9 | 40 | 99;
+}

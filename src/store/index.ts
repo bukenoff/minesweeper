@@ -5,12 +5,13 @@ import mines from './modules/mines';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  // state: {
-  // },
-  // mutations: {
-  // },
-  // actions: {
-  // },
+  state: {
+    game_over: false,
+  },
+  mutations: {
+  },
+  actions: {
+  },
   modules: {
     mines,
   },
