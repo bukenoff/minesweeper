@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import Table from '@/components/Table.vue';
 import Panel from '@/components/Panel.vue';
 
@@ -27,6 +27,9 @@ export default {
       rows: 'mines/rows',
       cols: 'mines/cols',
       mines_table: 'mines/mines_table',
+    }),
+    ...mapState({
+      game_over: 'game_over',
     }),
   },
 };

@@ -6,9 +6,9 @@ const state: IMinesState = {
   rows_count: 9,
   cols_count: 9,
   bombs_count: 9,
+  mines_open: 0,
 };
 
-// getters
 const getters = {
   // purpose of rows and cols getters
   // is to be able to render contents of table
@@ -27,7 +27,6 @@ const getters = {
   ),
 };
 
-// actions
 const actions = {
   openCell({ commit }: any, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
@@ -41,6 +40,8 @@ const actions = {
       row,
       col,
     });
+
+    commit('incrementMinesOpen');
 
     return null;
   },
@@ -64,7 +65,6 @@ const actions = {
   },
 };
 
-// mutations
 const mutations = {
   openCell(state: IMinesState, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
@@ -105,6 +105,10 @@ const mutations = {
   toggleFlagCell(state: IMinesState, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
     state.mines_table[row][col].is_flagged = !state.mines_table[row][col].is_flagged;
+  },
+
+  incrementMinesOpen(state: IMinesState) {
+    state.mines_open += 1;
   },
 
   generateTable(state: IMinesState) {
