@@ -93,7 +93,7 @@ const mutations = {
       neighbours.forEach((n, i) => {
         setTimeout(() => {
           openRecursively(table, n.row, n.col);
-        }, 100 * i);
+        }, 50 * i);
       });
 
       return null;
