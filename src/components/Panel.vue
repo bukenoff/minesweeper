@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <div>9x9</div>
-    <div>9</div>
+    <div>{{ flags_count }}</div>
   </div>
 </template>
 
@@ -10,7 +10,9 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'Panel',
-  props: {},
+  props: {
+    flags_count: Number,
+  },
   components: {},
 });
 </script>

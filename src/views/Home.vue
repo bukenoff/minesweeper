@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="game">
-      <Panel />
+      <Panel :flags_count="flags_count" />
       <Table
         :rows="rows"
         :cols="cols"
@@ -30,6 +30,7 @@ export default {
     }),
     ...mapState({
       game_over: 'game_over',
+      flags_count: 'mines/flags_count',
     }),
   },
 };

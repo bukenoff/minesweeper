@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { createFinalTable } from '@/algorithm/createTable';
 import { IMinesState, ITable } from '@/types';
 
@@ -7,6 +8,7 @@ const state: IMinesState = {
   cols_count: 9,
   bombs_count: 9,
   mines_open: 0,
+  flags_count: 9,
 };
 
 const getters = {
@@ -104,7 +106,13 @@ const mutations = {
 
   toggleFlagCell(state: IMinesState, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
-    state.mines_table[row][col].is_flagged = !state.mines_table[row][col].is_flagged;
+    const this_cell = state.mines_table[row][col];
+
+    this_cell.is_flagged = !this_cell.is_flagged;
+
+    this_cell.is_flagged
+      ? state.flags_count += 1
+      : state.flags_count -= 1;
   },
 
   incrementMinesOpen(state: IMinesState) {

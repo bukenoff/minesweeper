@@ -50,4 +50,5 @@ export interface IMinesState {
   cols_count: 9 | 16 | 30;
   bombs_count: 9 | 40 | 99;
   mines_open: number;
+  flags_count: number;
 }
