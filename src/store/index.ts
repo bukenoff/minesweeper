@@ -15,6 +15,7 @@ export default new Vuex.Store({
       commit('setGameResult', 'unset');
       commit('mines/generateTable');
       commit('mines/resetOpenCellsCount');
+      commit('mines/resetFlagsCount');
     },
   },
   mutations: {

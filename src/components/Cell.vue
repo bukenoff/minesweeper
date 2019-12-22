@@ -82,6 +82,18 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .cell {
   display: flex;
   justify-content: center;
@@ -98,6 +110,7 @@ export default Vue.extend({
   color: transparent;
   font-weight: bold;
   outline: none;
+  animation: appear 0.5s 1;
 
   & img {
     width: 12px;

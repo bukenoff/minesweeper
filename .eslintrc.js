@@ -18,6 +18,7 @@ module.exports = {
     'no-shadow': 'off',
     'arrow-body-style': 'off',
     'prefer-const': 'off',
+    'consistent-return': 'off',
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',

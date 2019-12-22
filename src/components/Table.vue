@@ -22,15 +22,11 @@ export default Vue.extend({
     rows: Array,
     cols: Array,
     mines_table: Object,
+    game_over: Boolean,
   },
   components: {
     Row,
     GameOverOverlay,
-  },
-  computed: {
-    ...mapState({
-      game_over: 'game_over',
-    }),
   },
 });
 </script>

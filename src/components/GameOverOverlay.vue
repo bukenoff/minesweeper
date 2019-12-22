@@ -15,12 +15,13 @@ export default Vue.extend({
   computed: {
     ...mapState({
       game_result: 'game_result',
+      game_over: 'game_over',
     }),
     loss() {
-      return this.game_result === 'loss';
+      return this.game_result === 'loss' && this.game_over;
     },
     win() {
-      return this.game_result === 'win';
+      return this.game_result === 'win' && this.game_over;
     },
   },
   methods: {

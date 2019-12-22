@@ -1,11 +1,14 @@
 <template>
   <div class="home">
     <div class="game">
-      <Panel :flags_count="flags_count" />
+      <Panel
+        :flags_count="flags_count"
+      />
       <Table
         :rows="rows"
         :cols="cols"
         :mines_table="mines_table"
+        :game_over="game_over"
       />
     </div>
   </div>
@@ -28,10 +31,8 @@ export default {
       cols: 'mines/cols',
       mines_table: 'mines/mines_table',
     }),
-    ...mapState({
-      game_over: 'game_over',
-      flags_count: 'mines/flags_count',
-    }),
+    ...mapState(['game_over']),
+    ...mapState('mines', ['flags_count']),
   },
 };
 </script>

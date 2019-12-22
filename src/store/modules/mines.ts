@@ -43,6 +43,11 @@ const actions = {
     if (this_cell.has_bomb) {
       commit('setGameOver', true, { root: true });
       commit('setGameResult', 'loss', { root: true });
+      commit('openCell', {
+        row,
+        col,
+      });
+      return null;
     }
 
     commit('openCell', {
@@ -132,11 +137,16 @@ const mutations = {
     const { row, col } = cell_position;
     const this_cell = state.mines_table[row][col];
 
+    if (state.flags_count === 0) {
+      return null;
+    }
+
     this_cell.is_flagged = !this_cell.is_flagged;
 
+
     this_cell.is_flagged
-      ? state.flags_count += 1
-      : state.flags_count -= 1;
+      ? state.flags_count -= 1
+      : state.flags_count += 1;
   },
 
   generateTable(state: IMinesState) {
@@ -145,6 +155,10 @@ const mutations = {
 
   resetOpenCellsCount(state: IMinesState) {
     state.cells_open = 0;
+  },
+
+  resetFlagsCount(state: IMinesState) {
+    state.flags_count = state.bombs_count;
   },
 };
 
