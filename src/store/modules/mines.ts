@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-expressions */
 import { createFinalTable } from '@/algorithm/createTable';
 import { IMinesState, ITable } from '@/types';
+import { areAllCellsOpen } from '@/utils/areAllCellsOpen';
 
 const state: IMinesState = {
   mines_table: createFinalTable(),
   rows_count: 9,
   cols_count: 9,
   bombs_count: 9,
-  mines_open: 0,
+  cells_open: 0,
   flags_count: 9,
 };
 
@@ -33,9 +34,15 @@ const actions = {
   openCell({ commit }: any, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
     const this_cell = state.mines_table[row][col];
+    const {
+      rows_count,
+      cols_count,
+      bombs_count,
+    } = state;
 
     if (this_cell.has_bomb) {
-      commit('setGameStatus', true, { root: true });
+      commit('setGameOver', true, { root: true });
+      commit('setGameResult', 'loss', { root: true });
     }
 
     commit('openCell', {
@@ -43,18 +50,31 @@ const actions = {
       col,
     });
 
-    commit('incrementMinesOpen');
+    if (areAllCellsOpen(state.cells_open, rows_count, cols_count, bombs_count)) {
+      commit('setGameOver', true, { root: true });
+      commit('setGameResult', 'win', { root: true });
+    }
 
     return null;
   },
 
   openEmptyCell({ commit }: any, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
+    const {
+      rows_count,
+      cols_count,
+      bombs_count,
+    } = state;
 
     commit('openEmptyCell', {
       row,
       col,
     });
+
+    if (areAllCellsOpen(state.cells_open, rows_count, cols_count, bombs_count)) {
+      commit('setGameOver', true, { root: true });
+      commit('setGameResult', 'win', { root: true });
+    }
   },
 
   toggleFlagCell({ commit }: any, cell_position: any) {
@@ -70,7 +90,9 @@ const actions = {
 const mutations = {
   openCell(state: IMinesState, cell_position: { row: number, col: number }) {
     const { row, col } = cell_position;
+
     state.mines_table[row][col].is_open = true;
+    state.cells_open += 1;
   },
 
   openEmptyCell(state: IMinesState, cell_position: { row: number, col: number }) {
@@ -84,11 +106,13 @@ const mutations = {
 
       // stop recursion if cell contains bombs around it
       if (table[row][col].bombs_around) {
+        state.cells_open += 1;
         table[row][col].is_open = true;
         return null;
       }
 
       table[row][col].is_open = true;
+      state.cells_open += 1;
 
       const { neighbours } = table[row][col];
       // recursive case
@@ -115,12 +139,12 @@ const mutations = {
       : state.flags_count -= 1;
   },
 
-  incrementMinesOpen(state: IMinesState) {
-    state.mines_open += 1;
-  },
-
   generateTable(state: IMinesState) {
     state.mines_table = createFinalTable();
+  },
+
+  resetOpenCellsCount(state: IMinesState) {
+    state.cells_open = 0;
   },
 };
 

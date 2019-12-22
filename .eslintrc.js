@@ -16,6 +16,8 @@ module.exports = {
     'no-param-reassign': 'off',
     'prefer-template': 'off',
     'no-shadow': 'off',
+    'arrow-body-style': 'off',
+    'prefer-const': 'off',
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',
