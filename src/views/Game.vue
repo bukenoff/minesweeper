@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="container">
     <div class="game">
       <Panel
         :flags_count="flags_count"
@@ -20,7 +20,7 @@ import Table from '@/components/Table.vue';
 import Panel from '@/components/Panel.vue';
 
 export default {
-  name: 'home',
+  name: 'Game',
   components: {
     Table,
     Panel,
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
+.container {
   display: flex;
   justify-content: center;
 }
