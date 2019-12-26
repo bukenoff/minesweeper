@@ -1,6 +1,6 @@
 <template>
   <div>
-    1
+    <h1>difficulty level</h1>
   </div>
 </template>
 

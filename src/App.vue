@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
+      <router-link to="/setup">Setup</router-link>
       <router-link to="/">Game</router-link>
     </div>
     <router-view/>
