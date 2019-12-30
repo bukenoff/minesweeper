@@ -33,8 +33,6 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .table {
-  width: 270px;
-  height: 270px;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;

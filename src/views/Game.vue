@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <div class="game">
+    <div
+      class="game"
+      :class="{
+        'easy': difficulty === 'easy',
+        'normal': difficulty === 'normal',
+        'hard': difficulty === 'hard',
+      }"
+    >
       <Panel
         :flags_count="flags_count"
       />
@@ -31,7 +38,7 @@ export default {
       cols: 'mines/cols',
       mines_table: 'mines/mines_table',
     }),
-    ...mapState(['game_over']),
+    ...mapState(['game_over', 'difficulty']),
     ...mapState('mines', ['flags_count']),
   },
 };
@@ -47,5 +54,20 @@ export default {
   display: flex;
   flex-direction: column;
   width: 270px;
+
+  &.easy {
+    width: 270px;
+    height: 270px;
+  }
+
+  &.normal {
+    width: 480px;
+    height: 480px;
+  }
+
+  &.hard {
+    width: 900px;
+    height: 480px;
+  }
 }
 </style>

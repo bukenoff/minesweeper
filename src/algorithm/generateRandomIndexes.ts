@@ -1,12 +1,14 @@
-export const generateRandomIndexes = (
-  rows: number,
-  cols: number,
-  bombs_number: number,
-): string[] => {
+import { IConfig } from '@/types';
+
+export const generateRandomIndexes = ({
+  rows,
+  cols,
+  bombs,
+}: IConfig): string[] => {
   const random_indexes: string[] = [];
 
-  while (random_indexes.length !== bombs_number) {
-    const random_index = Math.floor(Math.random() * rows) + '' + Math.floor(Math.random() * cols);
+  while (random_indexes.length !== bombs) {
+    const random_index = Math.floor(Math.random() * rows) + '-' + Math.floor(Math.random() * cols);
 
     if (!random_indexes.includes(random_index)) {
       random_indexes.push(random_index);

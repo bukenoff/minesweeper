@@ -1,9 +1,14 @@
-import { INeighbour } from '@/types';
+import { INeighbour, RowsNumber, ColsNumber } from '@/types';
 
 // this is some overly complicated piece of shit
 // should think about refactoring that somehow
 // anyway, how's your saturday going so far?
-export const assignNeighbours = (row_index: number, col_index: number): INeighbour[] => {
+export const assignNeighbours = (
+  row_index: number,
+  col_index: number,
+  rows_number: RowsNumber,
+  cols_number: ColsNumber,
+): INeighbour[] => {
   if (row_index === 0 && col_index === 0) {
     return [
       {
@@ -21,7 +26,7 @@ export const assignNeighbours = (row_index: number, col_index: number): INeighbo
     ];
   }
 
-  if (row_index === 0 && col_index === 8) {
+  if (row_index === 0 && col_index === (cols_number - 1)) {
     return [
       {
         row: row_index,
@@ -38,7 +43,7 @@ export const assignNeighbours = (row_index: number, col_index: number): INeighbo
     ];
   }
 
-  if (row_index === 8 && col_index === 0) {
+  if (row_index === (rows_number - 1) && col_index === 0) {
     return [
       {
         row: row_index,
@@ -55,7 +60,7 @@ export const assignNeighbours = (row_index: number, col_index: number): INeighbo
     ];
   }
 
-  if (row_index === 8 && col_index === 8) {
+  if (row_index === (rows_number - 1) && col_index === (cols_number - 1)) {
     return [
       {
         row: row_index,
@@ -97,7 +102,7 @@ export const assignNeighbours = (row_index: number, col_index: number): INeighbo
     ];
   }
 
-  if (row_index === 8) {
+  if (row_index === (rows_number - 1)) {
     return [
       {
         row: row_index,
@@ -122,7 +127,7 @@ export const assignNeighbours = (row_index: number, col_index: number): INeighbo
     ];
   }
 
-  if (col_index === 8) {
+  if (col_index === (cols_number - 1)) {
     return [
       {
         row: row_index,

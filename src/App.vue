@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/setup">Setup</router-link>
-      <router-link to="/">Game</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
@@ -30,6 +26,9 @@
   text-align: center;
   background-color: #0F0F0F;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #nav {

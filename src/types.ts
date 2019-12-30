@@ -21,6 +21,12 @@ export enum CellPositions {
   MIDDLE = 'MIDDLE',
 }
 
+export type BombsNumber = 9 | 40 | 99;
+
+export type ColsNumber = 9 | 16 | 30;
+
+export type RowsNumber = 9 | 16 | 30;
+
 export interface INeighbour {
   row: number;
   col: number;
@@ -44,11 +50,20 @@ export interface ITable {
   }
 }
 
+export type Difficulty = 'easy' | 'normal' | 'hard';
+
 export interface IMinesState {
   mines_table: ITable;
-  rows_count: 9 | 16;
-  cols_count: 9 | 16 | 30;
-  bombs_count: 9 | 40 | 99;
+  rows_count: RowsNumber;
+  cols_count: ColsNumber;
+  bombs_count: BombsNumber;
   cells_open: number;
   flags_count: number;
+}
+
+export interface IConfig {
+  rows: RowsNumber;
+  cols: ColsNumber;
+  bombs: BombsNumber;
+  difficulty?: Difficulty;
 }

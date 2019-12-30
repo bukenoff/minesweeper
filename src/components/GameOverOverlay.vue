@@ -2,7 +2,12 @@
   <div class="game-over-overlay">
     <h1 class="loss-result" v-if="loss">you lost</h1>
     <h1 class="win-result" v-if="win">you won</h1>
-    <button @click="startOver" type="button">start again</button>
+    <button
+      @click="handleStartClick"
+      type="button"
+    >
+    start again
+    </button>
   </div>
 </template>
 
@@ -16,7 +21,9 @@ export default Vue.extend({
     ...mapState({
       game_result: 'game_result',
       game_over: 'game_over',
+      difficulty: 'difficulty',
     }),
+    ...mapState('mines', ['rows_count', 'cols_count', 'bombs_count']),
     loss() {
       return this.game_result === 'loss' && this.game_over;
     },
@@ -26,6 +33,16 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions(['startOver']),
+    handleStartClick(e: any) {
+      // Ugly workaround of some ts bug that I encountered
+      // I know I know, it looks bad
+      (this as any).startOver({
+        rows: this.rows_count,
+        cols: this.cols_count,
+        bombs: this.bombs_count,
+        difficulty: this.difficulty,
+      });
+    },
   },
 });
 </script>

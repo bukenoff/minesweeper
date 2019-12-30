@@ -1,6 +1,11 @@
 <template>
   <div class="panel">
-    <button class="restart" @click="startOver">restart</button>
+    <button
+      class="restart"
+      @click="handleRestartClick"
+    >
+      restart
+    </button>
     <div class="flags">
       <img src="@/assets/img/flag.svg" />
       {{ flags_count }}
@@ -10,15 +15,27 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default Vue.extend({
   name: 'Panel',
   props: {
     flags_count: Number,
   },
+  computed: {
+    ...mapState(['difficulty']),
+    ...mapState('mines', ['rows_count', 'cols_count', 'bombs_count']),
+  },
   methods: {
     ...mapActions(['startOver']),
+    handleRestartClick(e: any) {
+      this.startOver({
+        rows: this.rows_count,
+        cols: this.cols_count,
+        bombs: this.bombs_count,
+        difficulty: this.difficulty,
+      });
+    },
   },
 });
 </script>

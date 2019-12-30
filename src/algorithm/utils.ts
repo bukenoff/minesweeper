@@ -1,6 +1,16 @@
-import { CellPosition, CellPositions } from '@/types';
+import {
+  CellPosition,
+  CellPositions,
+  RowsNumber,
+  ColsNumber,
+} from '@/types';
 
-const setCellPosition = (row: number, col: number): CellPosition => {
+const setCellPosition = (
+  row: number,
+  col: number,
+  rows_number: RowsNumber,
+  cols_number: ColsNumber,
+): CellPosition => {
   if (row === 0 && col === 0) {
     return CellPositions.UPPERMOST_LEFT;
   }
