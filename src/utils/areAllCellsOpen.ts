@@ -4,8 +4,6 @@ const areAllCellsOpen = (
   cols: number,
   bombs: number,
 ): boolean => {
-  console.log('CELLS OPEN', cells_open);
-  console.log(cells_open === (rows * cols - bombs));
   return cells_open === (rows * cols - bombs);
 };
 

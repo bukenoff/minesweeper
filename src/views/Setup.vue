@@ -57,7 +57,6 @@ export default {
   methods: {
     ...mapActions(['startOver']),
     handleClick(e) {
-      console.log(e.target.dataset);
       const {
         cols,
         rows,
