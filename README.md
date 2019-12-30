@@ -29,3 +29,9 @@ yarn test:e2e
 ```
 yarn lint
 ```
+
+### If you don't care about all that stuff, and just wanna see how it works
+Here you go buddy
+```
+https://unruffled-rosalind-d60a87.netlify.com/
+```
