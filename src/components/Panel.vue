@@ -1,11 +1,15 @@
 <template>
   <div class="panel">
+    <router-link to="/">
+      <img class="back" src="@/assets/img/back.svg" alt="back">
+    </router-link>
     <button
       class="restart"
       @click="handleRestartClick"
     >
       restart
     </button>
+    <span class="spacer" />
     <div class="flags">
       <img src="@/assets/img/flag.svg" />
       {{ flags_count }}
@@ -43,7 +47,6 @@ export default Vue.extend({
 <style scoped lang="scss">
 .panel {
   display: flex;
-  justify-content: space-between;
   background-color: var(--white);
   padding: 0.25rem;
 }
@@ -78,5 +81,15 @@ export default Vue.extend({
     height: 12px;
     margin-right: 5px;
   }
+}
+
+.spacer {
+  flex: 1;
+}
+
+.back {
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
 }
 </style>
