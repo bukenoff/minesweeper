@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-expressions */
 import { ITable, IConfig } from '@/types';
-import utils from './utils';
 import { generateRandomIndexes } from './generateRandomIndexes';
 import { assignNeighbours } from './assignNeighbours';
 
-export const createInitialTable = ({
+export const createEmptyTable = ({
   rows,
   cols,
-  bombs,
 }: IConfig): ITable => {
   const table: ITable = {};
 
@@ -20,7 +18,6 @@ export const createInitialTable = ({
         has_bomb: false,
         row: row_index,
         col: col_index,
-        position: utils.setCellPosition(row_index, col_index, rows, cols),
         is_open: false,
         bombs_around: 0,
         is_flagged: false,
@@ -50,12 +47,12 @@ const assignBombs = (
   });
 };
 
-export const createFinalTable = ({
+export const createTable = ({
   rows,
   cols,
   bombs,
 }: IConfig): ITable => {
-  const table = createInitialTable({ rows, cols, bombs });
+  const table = createEmptyTable({ rows, cols });
   assignBombs(table, { rows, cols, bombs });
 
   return table;

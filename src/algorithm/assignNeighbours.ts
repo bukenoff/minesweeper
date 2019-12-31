@@ -1,8 +1,5 @@
 import { INeighbour, RowsNumber, ColsNumber } from '@/types';
 
-// this is some overly complicated piece of shit
-// should think about refactoring that somehow
-// anyway, how's your saturday going so far?
 export const assignNeighbours = (
   row_index: number,
   col_index: number,

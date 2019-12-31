@@ -9,18 +9,6 @@ export type CellPosition =
   'RIGHTMOST' |
   'MIDDLE';
 
-export enum CellPositions {
-  UPPERMOST = 'UPPERMOST',
-  UPPERMOST_RIGHT = 'UPPERMOST_RIGHT',
-  UPPERMOST_LEFT = 'UPPERMOST_LEFT',
-  LOWERMOST = 'LOWERMOST',
-  LOWERMOST_LEFT = 'LOWERMOST_LEFT',
-  LOWERMOST_RIGHT = 'LOWERMOST_RIGHT',
-  LEFTMOST = 'LEFTMOST',
-  RIGHTMOST = 'RIGHTMOST',
-  MIDDLE = 'MIDDLE',
-}
-
 export type BombsNumber = 9 | 40 | 99;
 
 export type ColsNumber = 9 | 16 | 30;
@@ -36,7 +24,6 @@ export interface ICell {
   id: string;
   row: number;
   col: number;
-  position: CellPosition;
   has_bomb: boolean;
   bombs_around: number;
   is_open: boolean;
@@ -64,6 +51,6 @@ export interface IMinesState {
 export interface IConfig {
   rows: RowsNumber;
   cols: ColsNumber;
-  bombs: BombsNumber;
+  bombs?: BombsNumber;
   difficulty?: Difficulty;
 }

@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-expressions */
-import { createFinalTable } from '@/algorithm/createTable';
+import { createTable } from '@/algorithm/createTable';
 import { IMinesState, ITable, IConfig } from '@/types';
 import { areAllCellsOpen } from '@/utils/areAllCellsOpen';
 
 const state: IMinesState = {
-  mines_table: createFinalTable({ rows: 9, cols: 9, bombs: 9 }),
+  mines_table: createTable({ rows: 9, cols: 9, bombs: 9 }),
   rows_count: 9,
   cols_count: 9,
   bombs_count: 9,
@@ -150,7 +150,7 @@ const mutations = {
   },
 
   generateTable(state: IMinesState, config: IConfig) {
-    state.mines_table = createFinalTable(config);
+    state.mines_table = createTable(config);
     const { difficulty } = config;
 
     if (difficulty === 'easy') {
