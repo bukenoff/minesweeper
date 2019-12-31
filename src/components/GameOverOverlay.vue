@@ -6,7 +6,7 @@
       @click="handleStartClick"
       type="button"
     >
-    start again
+      start again
     </button>
   </div>
 </template>
@@ -18,11 +18,11 @@ import { mapState, mapActions } from 'vuex';
 export default Vue.extend({
   name: 'GameOverOverlay',
   computed: {
-    ...mapState({
-      game_result: 'game_result',
-      game_over: 'game_over',
-      difficulty: 'difficulty',
-    }),
+    ...mapState([
+      'game_result',
+      'game_over',
+      'difficulty',
+    ]),
     ...mapState('mines', ['rows_count', 'cols_count', 'bombs_count']),
     loss() {
       return this.game_result === 'loss' && this.game_over;

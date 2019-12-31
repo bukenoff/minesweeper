@@ -1,14 +1,3 @@
-export type CellPosition =
-  'UPPERMOST' |
-  'UPPERMOST_RIGHT' |
-  'UPPERMOST_LEFT' |
-  'LOWERMOST' |
-  'LOWERMOST_LEFT' |
-  'LOWERMOST_RIGHT' |
-  'LEFTMOST' |
-  'RIGHTMOST' |
-  'MIDDLE';
-
 export type BombsNumber = 9 | 40 | 99;
 
 export type ColsNumber = 9 | 16 | 30;
