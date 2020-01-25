@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { ActionContext } from 'vuex';
 import mines from './modules/mines';
-import { IConfig } from '@/types';
+import { IConfig, IRootState } from '@/types';
 
 Vue.use(Vuex);
 
@@ -12,7 +12,10 @@ export default new Vuex.Store({
     difficulty: 'unset',
   },
   actions: {
-    startOver({ commit }: any, config: IConfig) {
+    startOver(
+      { commit }: ActionContext<IRootState, IRootState>,
+      config: IConfig,
+    ) {
       commit('setGameOver', false);
       commit('setGameResult', 'unset');
       commit('setDifficulty', config.difficulty);
@@ -22,15 +25,15 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    setGameOver(state: any, status) {
+    setGameOver(state: IRootState, status) {
       state.game_over = status;
     },
 
-    setGameResult(state: any, result) {
+    setGameResult(state: IRootState, result) {
       state.game_result = result;
     },
 
-    setDifficulty(state: any, difficulty) {
+    setDifficulty(state: IRootState, difficulty) {
       state.difficulty = difficulty;
     },
   },

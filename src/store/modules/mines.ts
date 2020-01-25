@@ -1,6 +1,12 @@
 /* eslint-disable no-unused-expressions */
+import { ActionContext } from 'vuex';
 import { createTable } from '@/algorithm/createTable';
-import { IMinesState, ITable, IConfig } from '@/types';
+import {
+  IRootState,
+  IMinesState,
+  ITable,
+  IConfig,
+} from '@/types';
 import { areAllCellsOpen } from '@/utils/areAllCellsOpen';
 
 const state: IMinesState = {
@@ -31,7 +37,10 @@ const getters = {
 };
 
 const actions = {
-  openCell({ commit }: any, cell_position: { row: number, col: number }) {
+  openCell(
+    { commit }: ActionContext<IMinesState, IRootState>,
+    cell_position: { row: number, col: number },
+  ) {
     const { row, col } = cell_position;
     const this_cell = state.mines_table[row][col];
     const {
@@ -63,7 +72,10 @@ const actions = {
     return null;
   },
 
-  openEmptyCell({ commit }: any, cell_position: { row: number, col: number }) {
+  openEmptyCell(
+    { commit }: ActionContext<IMinesState, IRootState>,
+    cell_position: { row: number, col: number },
+  ) {
     const { row, col } = cell_position;
     const {
       rows_count,
@@ -82,7 +94,10 @@ const actions = {
     }
   },
 
-  toggleFlagCell({ commit }: any, cell_position: any) {
+  toggleFlagCell(
+    { commit }: ActionContext<IMinesState, IRootState>,
+    cell_position: { row: number, col: number },
+  ) {
     const { row, col } = cell_position;
 
     commit('toggleFlagCell', {

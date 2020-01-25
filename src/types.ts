@@ -26,7 +26,15 @@ export interface ITable {
   }
 }
 
-export type Difficulty = 'easy' | 'normal' | 'hard';
+export type GameResult = 'unset' | 'loss' | 'win';
+
+export type Difficulty = 'unset' | 'easy' | 'normal' | 'hard';
+
+export interface IRootState {
+  game_over: boolean;
+  game_result: GameResult,
+  difficulty: Difficulty,
+}
 
 export interface IMinesState {
   mines_table: ITable;
