@@ -3,34 +3,34 @@
     <h1>Minesweeper</h1>
     <div class="levels">
       <LevelItem
-        cols="9"
-        rows="9"
-        bombs="9"
-        difficulty="easy"
+        :cols="LEVELS.EASY.cols"
+        :rows="LEVELS.EASY.rows"
+        :bombs="LEVELS.EASY.bombs"
+        :difficulty="LEVELS.EASY.name"
       />
       <LevelItem
-        cols="16"
-        rows="16"
-        bombs="40"
-        difficulty="normal"
+        :cols="LEVELS.NORMAL.cols"
+        :rows="LEVELS.NORMAL.rows"
+        :bombs="LEVELS.NORMAL.bombs"
+        :difficulty="LEVELS.NORMAL.name"
       />
       <LevelItem
-        cols="30"
-        rows="16"
-        bombs="99"
-        difficulty="hard"
+        :cols="LEVELS.HARD.cols"
+        :rows="LEVELS.HARD.rows"
+        :bombs="LEVELS.HARD.bombs"
+        :difficulty="LEVELS.HARD.name"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState, mapActions } from 'vuex';
 import LevelItem from '@/components/LevelItem.vue';
+import { LEVELS } from '@/constants';
 
 export default {
   name: 'Setup',
-  computed: {},
+  computed: { LEVELS: () => LEVELS },
   methods: {},
   components: {
     LevelItem,
