@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import Cell from './components/Cell.vue'
 import { useBoard } from './stores/board'
+import './style.css'
 
 const boardStore = useBoard()
 
