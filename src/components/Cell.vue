@@ -27,9 +27,12 @@ function handleToggleFlagClick() {
 <template>
   <button
     class="cell"
-    :class="{
-      'cell--open': is_open,
-    }"
+    :class="[
+      {
+        'cell--open': is_open,
+      },
+      `cell__number--${mines_around}`,
+    ]"
     @click="handleOpenClick"
     @contextmenu.prevent="handleToggleFlagClick"
   >
@@ -74,5 +77,41 @@ function handleToggleFlagClick() {
 .cell__icon {
   width: 0.75rem;
   height: 0.75rem;
+}
+
+.cell--number__0 {
+  color: transparent;
+}
+
+.cell__number--1 {
+  color: #7ba05b;
+}
+
+.cell__number--2 {
+  color: #c4847a;
+}
+
+.cell__number--3 {
+  color: #e07a5f;
+}
+
+.cell__number--4 {
+  color: #8b7bab;
+}
+
+.cell__number--5 {
+  color: #d4956a;
+}
+
+.cell__number--6 {
+  color: #5b8a8b;
+}
+
+.cell__number--7 {
+  color: #4a4a48;
+}
+
+.cell__number--8 {
+  color: #9b9b8e;
 }
 </style>
