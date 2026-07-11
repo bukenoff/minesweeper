@@ -14,13 +14,12 @@ const { board } = storeToRefs(boardStore)
       <Cell
         v-for="(item, itemIndex) in row"
         :id="itemIndex"
-        :has_bomb="item.has_mine"
+        :has_mine="item.has_mine"
         :row="item.row"
         :col="item.col"
         :is_open="item.is_open"
-        :bombs_around="item.mines_around"
+        :mines_around="item.mines_around"
         :is_flagged="item.is_flagged"
-        :neighbours="[]"
       />
     </template>
   </div>

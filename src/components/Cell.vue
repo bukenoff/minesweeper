@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useBoard } from '../stores/board'
 
-const { row, col, is_open, bombs_around, has_bomb, is_flagged } = defineProps<{
+const { row, col, is_open, mines_around, has_mine, is_flagged } = defineProps<{
   id: number
-  has_bomb: boolean
+  has_mine: boolean
   row: number
   col: number
   is_open: boolean
-  bombs_around: number
+  mines_around: number
   is_flagged: boolean
-  neighbours: any[]
 }>()
 
 const { openCell, toggleFlagCell } = useBoard()
@@ -35,9 +34,9 @@ function handleToggleFlagClick() {
     @contextmenu.prevent="handleToggleFlagClick"
   >
     <span v-if="is_open">
-      {{ bombs_around && !has_bomb ? bombs_around : '' }}
+      {{ mines_around && !has_mine ? mines_around : '' }}
     </span>
-    <img class="cell__icon" v-if="has_bomb && is_open" src="@/assets/bomb.svg" />
+    <img class="cell__icon" v-if="has_mine && is_open" src="@/assets/bomb.svg" />
     <img class="cell__icon" v-if="is_flagged" src="@/assets/flag.svg" />
   </button>
 </template>
