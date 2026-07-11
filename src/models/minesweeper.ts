@@ -132,11 +132,13 @@ export class MinesweeperModel {
     const neighbors = this.getCellNeighbors(row, col)
 
     neighbors.forEach((neighbor) => {
-      if (!this.board?.[neighbor.row]?.[neighbor.col]) {
+      const neighborCell = this.board?.[neighbor.row]?.[neighbor.col]
+
+      if (!neighborCell) {
         throw new Error(`Could not locate cell at row - ${neighbor.row}, col - ${neighbor.col}`)
       }
 
-      this.board[neighbor.row][neighbor.col].mines_around += 1
+      neighborCell.mines_around += 1
     })
   }
 
