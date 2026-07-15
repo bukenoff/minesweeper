@@ -1,8 +1,23 @@
+:root[data-color-mode='light'] {
+  --bg-color: #eef0f2ff;
+  --fg-color: #141414ff;
+}
+
+:root[data-color-mode='dark'] {
+  --bg-color: #141414ff;
+  --fg-color: #eef0f2ff;
+}
+
 body {
+  background-color: var(--bg-color);
+  color: var(--fg-color);
   height: 100vh;
   width: 100%;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease;
 }
