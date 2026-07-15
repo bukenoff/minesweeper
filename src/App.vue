@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import Board from './components/Board.vue'
+import ThemeToggle from './components/ThemeToggle.vue'
 
 import './style.css'
-import { useTheme } from './composables/useTheme'
-
-const { toggleTheme } = useTheme()
 </script>
 
 <template>
-  <button @click="toggleTheme">switch theme</button>
+  <ThemeToggle></ThemeToggle>
   <Board></Board>
 </template>
