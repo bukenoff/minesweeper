@@ -19,8 +19,7 @@ const { theme, toggleTheme } = useTheme()
   padding: 0;
   height: 2rem;
   width: 2rem;
-  background: transparent;
-  border-radius: 50%;
+  background: var(--bg-color);
   border-style: solid;
   border-color: var(--fg-color);
   right: 1rem;

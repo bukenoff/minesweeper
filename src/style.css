@@ -1,16 +1,22 @@
 :root {
   --bg-color: #eef0f2ff;
   --fg-color: #141414ff;
+  --dot-color: rgba(0, 0, 0, 0.2);
+  --green: #9fcc2e;
+  --blue: #3083dc;
+  --pink: #da627d;
 }
 
 :root[data-color-mode='light'] {
   --bg-color: #eef0f2ff;
   --fg-color: #141414ff;
+  --dot-color: rgba(0, 0, 0, 0.2);
 }
 
 :root[data-color-mode='dark'] {
   --bg-color: #141414ff;
   --fg-color: #eef0f2ff;
+  --dot-color: rgba(255, 255, 255, 0.2);
 }
 
 body {
@@ -26,4 +32,6 @@ body {
   transition:
     color 0.25s ease,
     background-color 0.25s ease;
+  background-image: radial-gradient(circle, var(--dot-color) 1.2px, transparent 1.2px);
+  background-size: 15px 15px;
 }
