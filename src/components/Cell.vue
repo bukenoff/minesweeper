@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useBoard } from '../stores/board'
 
-const { row, col, is_open, mines_around, has_mine, is_flagged } = defineProps<{
+const { row, col, is_open, mines_around, has_mine, is_flagged, isSelected } = defineProps<{
   id: number
   has_mine: boolean
   row: number
@@ -9,6 +9,7 @@ const { row, col, is_open, mines_around, has_mine, is_flagged } = defineProps<{
   is_open: boolean
   mines_around: number
   is_flagged: boolean
+  isSelected: boolean
 }>()
 
 const { openCell, toggleFlagCell } = useBoard()
@@ -30,6 +31,7 @@ function handleToggleFlagClick() {
     :class="[
       {
         'cell--open': is_open,
+        'cell--selected': isSelected,
       },
       `cell__number--${mines_around}`,
     ]"
@@ -72,6 +74,10 @@ function handleToggleFlagClick() {
   background-color: #fefefe;
   border: 1px solid #ccc;
   color: black;
+}
+
+.cell--selected {
+  background-color: pink;
 }
 
 .cell__icon {
