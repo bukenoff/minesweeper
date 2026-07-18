@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { Smile, Frown, Laugh } from '@lucide/vue'
+import { useBoard } from '../stores/board'
+
+const boardStore = useBoard()
 </script>
 
 <template>
@@ -13,7 +16,9 @@ import { Smile, Frown, Laugh } from '@lucide/vue'
   <div class="controls">
     <span class="controls__counter">000</span>
     <button class="controls__restart-button">
-      <Smile size="16" />
+      <Laugh v-if="boardStore.state === 'victory'" size="16" />
+      <Frown v-else-if="boardStore.state === 'loss'" size="16" />
+      <Smile v-else size="16" />
     </button>
     <span class="controls__counter">000</span>
   </div>
