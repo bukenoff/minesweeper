@@ -1,3 +1,5 @@
+import { ref, reactive } from 'vue'
+
 type Coordinates = {
   row: number
   col: number
@@ -10,6 +12,9 @@ export class Cell {
   mines_around: number
   is_open: boolean
   is_flagged: boolean
+  id: number
+
+  static lastId = 0
 
   constructor(row: number, col: number) {
     this.row = row
@@ -18,6 +23,7 @@ export class Cell {
     this.mines_around = 0
     this.is_open = false
     this.is_flagged = false
+    this.id = Cell.lastId++
   }
 
   static encodeHashKey(row: number, col: number, max_col: number): number {
@@ -37,60 +43,58 @@ export type Board = Cell[][]
 
 export type GameState = 'pending' | 'active' | 'victory' | 'loss'
 
-export class MinesweeperModel {
-  rows = 0
-  cols = 0
-  mines = 0
-  board: Board = []
-  state: GameState = 'pending'
-  difficulty: Difficulty = 'easy'
-  cells_open = 0
-  flags_left = 0
+export function createMinesweeperGame(difficulty: Difficulty) {
+  let rows = 0
+  let cols = 0
+  let mines = 0
+  let board: Board = reactive([])
+  const state = ref<GameState>('pending')
+  const cells_open = ref(0)
+  const flags_left = ref(0)
 
-  constructor(difficulty: Difficulty) {
-    this.init(difficulty)
-  }
-
-  init(difficulty: Difficulty) {
-    this.difficulty = difficulty
-
+  function init() {
     switch (difficulty) {
       case 'easy':
-        this.rows = 9
-        this.cols = 9
-        this.mines = 9
+        rows = 9
+        cols = 9
+        mines = 9
         break
       case 'normal':
-        this.rows = 16
-        this.cols = 16
-        this.mines = 40
+        rows = 16
+        cols = 16
+        mines = 40
         break
       case 'hard':
-        this.rows = 16
-        this.cols = 30
-        this.mines = 99
+        rows = 16
+        cols = 30
+        mines = 99
         break
 
       default:
         throw new Error('Unsupported difficulty level')
     }
 
-    this.flags_left = this.mines
+    flags_left.value = mines
 
-    this.board = this.generateEmptyBoard(this.rows, this.cols)
-    this.state = 'pending'
-    this.cells_open = 0
+    const newBoard = generateEmptyBoard(rows, cols)
+    board.length = 0
+    for (let i = 0; i < newBoard.length; i++) {
+      board.push(newBoard[i])
+    }
+    state.value = 'pending'
+    cells_open.value = 0
   }
 
-  get totalCells() {
-    return this.rows * this.cols
+  function totalCells() {
+    return rows * cols
   }
 
-  flush() {
-    this.init(this.difficulty)
+  function flush() {
+    init()
+    Cell.lastId = 0
   }
 
-  generateEmptyBoard(rows: number, cols: number) {
+  function generateEmptyBoard(rows: number, cols: number) {
     const board = new Array(rows)
 
     for (let i = 0; i < board.length; i++) {
@@ -104,18 +108,18 @@ export class MinesweeperModel {
     return board
   }
 
-  generateMinesPositions(count: number, avoided_cell: Coordinates): Set<number> {
+  function generateMinesPositions(count: number, avoided_cell: Coordinates): Set<number> {
     const positions = new Set<number>()
 
     while (count) {
-      const randow_row = Math.floor(Math.random() * this.rows)
-      const randow_col = Math.floor(Math.random() * this.cols)
+      const randow_row = Math.floor(Math.random() * rows)
+      const randow_col = Math.floor(Math.random() * cols)
 
       if (randow_row === avoided_cell.row && randow_col === avoided_cell.col) {
         continue
       }
 
-      const hash = Cell.encodeHashKey(randow_row, randow_col, this.cols)
+      const hash = Cell.encodeHashKey(randow_row, randow_col, cols)
 
       if (positions.has(hash)) {
         continue
@@ -128,11 +132,11 @@ export class MinesweeperModel {
     return positions
   }
 
-  plantHints(row: number, col: number) {
-    const neighbors = this.getCellNeighbors(row, col)
+  function plantHints(row: number, col: number) {
+    const neighbors = getCellNeighbors(row, col)
 
     neighbors.forEach((neighbor) => {
-      const neighborCell = this.board?.[neighbor.row]?.[neighbor.col]
+      const neighborCell = board?.[neighbor.row]?.[neighbor.col]
 
       if (!neighborCell) {
         throw new Error(`Could not locate cell at row - ${neighbor.row}, col - ${neighbor.col}`)
@@ -142,24 +146,24 @@ export class MinesweeperModel {
     })
   }
 
-  plantMines(avoided_cell: Coordinates) {
-    const mines_positions = this.generateMinesPositions(this.mines, avoided_cell)
+  function plantMines(avoided_cell: Coordinates) {
+    const mines_positions = generateMinesPositions(mines, avoided_cell)
 
     mines_positions.forEach((mine_position) => {
-      const { row, col } = Cell.decodeHashKey(mine_position, this.cols)
+      const { row, col } = Cell.decodeHashKey(mine_position, cols)
 
-      if (!this.board?.[row]?.[col]) {
+      if (!board?.[row]?.[col]) {
         throw new Error(`Could not locate cell at row - ${row}, col - ${col}`)
       }
 
-      this.board[row][col].has_mine = true
-      this.plantHints(row, col)
+      board[row][col].has_mine = true
+      plantHints(row, col)
     })
   }
 
-  getCellNeighbors(row: number, col: number): Coordinates[] {
-    const maxRow = this.rows - 1
-    const maxCol = this.cols - 1
+  function getCellNeighbors(row: number, col: number): Coordinates[] {
+    const maxRow = rows - 1
+    const maxCol = cols - 1
 
     return [
       { row: row - 1, col },
@@ -179,31 +183,32 @@ export class MinesweeperModel {
     )
   }
 
-  flagCell(row: number, col: number, board: any) {
+  function flagCell(row: number, col: number) {
     const cell = board?.[row]?.[col]
 
     if (!cell) {
       throw new Error(`Could not locate cell at row - ${row}, col - ${col}`)
     }
 
-    if (cell.is_open || !this.flags_left) {
+    if (cell.is_open || !flags_left.value) {
       return
     }
 
     cell.is_flagged = !cell.is_flagged
 
     if (cell.is_flagged) {
-      this.flags_left -= 1
+      flags_left.value -= 1
     } else {
-      this.flags_left += 1
+      flags_left.value += 1
     }
   }
 
-  openCell(row: number, col: number, board: any) {
+  function openCell(row: number, col: number) {
     // Check bounds
-    if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) {
+    if (row < 0 || row >= rows || col < 0 || col >= cols) {
       return
     }
+
     const cell = board?.[row]?.[col]
 
     if (!cell) {
@@ -214,13 +219,13 @@ export class MinesweeperModel {
     if (cell.is_open || cell.is_flagged) {
       return
     }
-    if (this.state === 'loss' || this.state === 'victory') {
+    if (state.value === 'loss' || state.value === 'victory') {
       return
     }
     // Start game if not started yet
-    if (this.state === 'pending') {
-      this.plantMines({ row, col })
-      this.state = 'active'
+    if (state.value === 'pending') {
+      plantMines({ row, col })
+      state.value = 'active'
     }
 
     if (!board?.[row]?.[col]) {
@@ -228,24 +233,54 @@ export class MinesweeperModel {
     }
 
     board[row][col].is_open = true
-    this.cells_open += 1
+    cells_open.value += 1
 
     if (cell.has_mine) {
-      this.state = 'loss'
+      state.value = 'loss'
       return
     } else {
     }
 
-    if (this.cells_open === this.totalCells - this.mines) {
-      this.state = 'victory'
+    if (cells_open.value === totalCells() - mines) {
+      state.value = 'victory'
     }
 
     if (!cell.mines_around) {
-      const neighbors = this.getCellNeighbors(row, col)
+      const neighbors = getCellNeighbors(row, col)
 
       neighbors.forEach((neighbor) => {
-        setTimeout(() => this.openCell(neighbor.row, neighbor.col, board), 50)
+        setTimeout(() => openCell(neighbor.row, neighbor.col), 50)
       })
     }
+  }
+
+  init()
+
+  return {
+    get rows() {
+      return rows
+    },
+    get cols() {
+      return cols
+    },
+    get mines() {
+      return mines
+    },
+    get board() {
+      return board
+    },
+    get state() {
+      return state.value
+    },
+    get cellsOpen() {
+      return cells_open.value
+    },
+    get flagsLeft() {
+      return flags_left.value
+    },
+    init,
+    flush,
+    flagCell,
+    openCell,
   }
 }

@@ -1,19 +1,29 @@
-import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 
-import { MinesweeperModel } from '@/models/minesweeper'
+import { createMinesweeperGame } from '@/models/minesweeper'
 
 export const useBoard = defineStore('board', () => {
-  const model = new MinesweeperModel('easy')
-  const board = reactive(model.board)
+  const game = createMinesweeperGame('easy')
 
   function openCell(row: number, col: number) {
-    model.openCell(row, col, board)
+    game.openCell(row, col)
   }
 
   function toggleFlagCell(row: number, col: number) {
-    model.flagCell(row, col, board)
+    game.flagCell(row, col)
   }
 
-  return { board, openCell, toggleFlagCell }
+  function flush() {
+    game.flush()
+  }
+
+  return {
+    board: game.board,
+    state: game.state,
+    flagsLeft: game.flagsLeft,
+    cellsOpen: game.cellsOpen,
+    openCell,
+    toggleFlagCell,
+    flush,
+  }
 })
