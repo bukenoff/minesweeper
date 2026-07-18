@@ -12,16 +12,16 @@ const { row, col, is_open, mines_around, has_mine, is_flagged, isSelected } = de
   isSelected: boolean
 }>()
 
-const { openCell, toggleFlagCell } = useBoard()
+const boardStore = useBoard()
 
 function handleOpenClick() {
   console.log('click')
-  openCell(row, col)
+  boardStore.openCell(row, col)
 }
 
 function handleToggleFlagClick() {
   console.log('clack')
-  toggleFlagCell(row, col)
+  boardStore.toggleFlagCell(row, col)
 }
 </script>
 
@@ -77,7 +77,7 @@ function handleToggleFlagClick() {
 }
 
 .cell--selected {
-  background-color: pink;
+  background-color: #e5e5e5;
 }
 
 .cell__icon {
