@@ -54,6 +54,8 @@ onUnmounted(() => {
         :mines_around="item.mines_around"
         :is_flagged="item.is_flagged"
         :isSelected="cursorStore.cursorRow === item.row && cursorStore.cursorCol === item.col"
+        @open="boardStore.openCell"
+        @flag="boardStore.toggleFlagCell"
       />
     </template>
   </div>

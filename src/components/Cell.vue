@@ -12,17 +12,10 @@ const { row, col, is_open, mines_around, has_mine, is_flagged, isSelected } = de
   isSelected: boolean
 }>()
 
-const boardStore = useBoard()
-
-function handleOpenClick() {
-  console.log('click')
-  boardStore.openCell(row, col)
-}
-
-function handleToggleFlagClick() {
-  console.log('clack')
-  boardStore.toggleFlagCell(row, col)
-}
+defineEmits<{
+  open: [row: number, col: number]
+  flag: [row: number, col: number]
+}>()
 </script>
 
 <template>
@@ -35,8 +28,8 @@ function handleToggleFlagClick() {
       },
       `cell__number--${mines_around}`,
     ]"
-    @click="handleOpenClick"
-    @contextmenu.prevent="handleToggleFlagClick"
+    @click="emit('open', row, col)"
+    @contextmenu.prevent="emit('flag', row, col)"
   >
     <span v-if="is_open">
       {{ mines_around && !has_mine ? mines_around : '' }}
@@ -77,7 +70,8 @@ function handleToggleFlagClick() {
 }
 
 .cell--selected {
-  background-color: #e5e5e5;
+  outline: 2px solid var(--fg-color);
+  outline-offset: -2px;
 }
 
 .cell__icon {
