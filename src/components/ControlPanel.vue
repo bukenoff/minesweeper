@@ -14,8 +14,8 @@ const boardStore = useBoard()
     </select>
   </div>
   <div class="controls">
-    <span class="controls__counter">000</span>
-    <button class="controls__restart-button">
+    <span class="controls__counter">{{ String(boardStore.flagsLeft).padStart(3, '0') }}</span>
+    <button class="controls__restart-button" @click="boardStore.restart">
       <Laugh v-if="boardStore.state === 'victory'" size="16" />
       <Frown v-else-if="boardStore.state === 'loss'" size="16" />
       <Smile v-else size="16" />

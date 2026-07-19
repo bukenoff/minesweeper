@@ -17,7 +17,7 @@ export const useBoard = defineStore('board', () => {
     game.flagCell(row, col)
   }
 
-  function flush() {
+  function restart() {
     game.flush()
   }
 
@@ -28,6 +28,6 @@ export const useBoard = defineStore('board', () => {
     cellsOpen,
     openCell,
     toggleFlagCell,
-    flush,
+    restart,
   }
 })
