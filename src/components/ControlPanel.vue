@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { Smile, Frown, Laugh } from '@lucide/vue'
 import { useBoard } from '../stores/board'
+import { useTimer } from '../composables/useTimer'
 
 const boardStore = useBoard()
+const timerStore = useTimer(() => boardStore.state)
 </script>
 
 <template>
@@ -20,7 +22,7 @@ const boardStore = useBoard()
       <Frown v-else-if="boardStore.state === 'loss'" size="16" />
       <Smile v-else size="16" />
     </button>
-    <span class="controls__counter">000</span>
+    <span class="controls__counter">{{ String(timerStore.time.value).padStart(3, '0') }}</span>
   </div>
 </template>
 
