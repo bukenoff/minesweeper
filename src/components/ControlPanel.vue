@@ -18,9 +18,9 @@ const timerStore = useTimer(() => boardStore.state)
   <div class="controls">
     <span class="controls__counter">{{ String(boardStore.flagsLeft).padStart(3, '0') }}</span>
     <button class="controls__restart-button" @click="boardStore.restart">
-      <Laugh v-if="boardStore.state === 'victory'" size="16" />
-      <Frown v-else-if="boardStore.state === 'loss'" size="16" />
-      <Smile v-else size="16" />
+      <Laugh v-if="boardStore.state === 'victory'" size="24" />
+      <Frown v-else-if="boardStore.state === 'loss'" size="24" />
+      <Smile v-else size="24" />
     </button>
     <span class="controls__counter">{{ String(timerStore.time.value).padStart(3, '0') }}</span>
   </div>
