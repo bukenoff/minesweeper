@@ -12,7 +12,7 @@ const { row, col, is_open, mines_around, has_mine, is_flagged, isSelected } = de
   isSelected: boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   open: [row: number, col: number]
   flag: [row: number, col: number]
 }>()
