@@ -47,5 +47,7 @@ const timerStore = useTimer(() => boardStore.state)
   padding: 0;
   border: none;
   cursor: pointer;
+  background: var(--bg-color);
+  color: var(--fg-color);
 }
 </style>
