@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { useBoard } from '../stores/board'
-
 const { row, col, is_open, mines_around, has_mine, is_flagged, isSelected } = defineProps<{
-  id: number
   has_mine: boolean
   row: number
   col: number

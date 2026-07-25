@@ -45,8 +45,8 @@ onUnmounted(() => {
   <div class="board">
     <template v-for="(row, rowIndex) in boardStore.board" :key="rowIndex">
       <Cell
-        v-for="(item, itemIndex) in row"
-        :id="itemIndex"
+        v-for="item in row"
+        :key="item.id"
         :has_mine="item.has_mine"
         :row="item.row"
         :col="item.col"
