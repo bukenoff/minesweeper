@@ -47,6 +47,7 @@ onUnmounted(() => {
       <Cell
         v-for="(item, itemIndex) in row"
         :id="itemIndex"
+        :key="item.id"
         :has_mine="item.has_mine"
         :row="item.row"
         :col="item.col"
