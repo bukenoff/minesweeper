@@ -66,7 +66,7 @@ onUnmounted(() => {
 .board {
   width: fit-content;
   display: grid;
-  grid-template-rows: repeat(9, 1fr);
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(v-bind('boardStore.rows'), 1fr);
+  grid-template-columns: repeat(v-bind('boardStore.cols'), 1fr);
 }
 </style>

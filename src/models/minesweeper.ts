@@ -49,11 +49,14 @@ export type MinesweeperState = {
   state: GameState
   cells_open: number
   flags_left: number
+  difficulty: Difficulty
 }
 
-export function createMinesweeperGame(state: MinesweeperState, difficulty: Difficulty) {
-  function init() {
-    switch (difficulty) {
+export function createMinesweeperGame(state: MinesweeperState) {
+  function init(newDifficulty: Difficulty) {
+    state.difficulty = newDifficulty
+
+    switch (newDifficulty) {
       case 'easy':
         state.rows = 9
         state.cols = 9
@@ -90,8 +93,8 @@ export function createMinesweeperGame(state: MinesweeperState, difficulty: Diffi
     return state.rows * state.cols
   }
 
-  function flush() {
-    init()
+  function flush(newDifficulty: Difficulty) {
+    init(newDifficulty)
     Cell.lastId = 0
   }
 
@@ -255,7 +258,7 @@ export function createMinesweeperGame(state: MinesweeperState, difficulty: Diffi
     }
   }
 
-  init()
+  init(state.difficulty)
 
   return {
     flush,

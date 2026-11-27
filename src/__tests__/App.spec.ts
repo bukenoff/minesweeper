@@ -1,11 +1,19 @@
 import { describe, it, expect } from 'vitest'
 
 import { mount } from '@vue/test-utils'
+import { createPinia } from 'pinia'
 import App from '../App.vue'
 
 describe('App', () => {
-  it('mounts renders properly', () => {
-    const wrapper = mount(App)
-    expect(wrapper.text()).toContain('You did it!')
+  it('renders the default Minesweeper board', () => {
+    const wrapper = mount(App, {
+      global: { plugins: [createPinia()] },
+    })
+
+    try {
+      expect(wrapper.findAll('.cell')).toHaveLength(81)
+    } finally {
+      wrapper.unmount()
+    }
   })
 })

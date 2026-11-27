@@ -26,4 +26,22 @@ test.describe('Minesweeper', () => {
     await expect(cells.nth(0).locator('img')).not.toBeVisible()
     await expect(cells.nth(1)).not.toHaveClass(/cell--open/)
   })
+
+  test('board renders, game starts in easy by default, difficulty selector works', async ({
+    page,
+  }) => {
+    await page.goto('/')
+
+    const cells = page.locator('.cell')
+    await expect(cells).toHaveCount(81)
+
+    const selector = page.locator('#difficulty-select')
+    await expect(selector).toHaveValue('easy')
+
+    await selector.selectOption('normal')
+    await expect(cells).toHaveCount(256)
+
+    await selector.selectOption('hard')
+    await expect(cells).toHaveCount(480)
+  })
 })
