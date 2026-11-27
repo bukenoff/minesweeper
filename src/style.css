@@ -32,6 +32,4 @@ body {
   transition:
     color 0.25s ease,
     background-color 0.25s ease;
-  background-image: radial-gradient(circle, var(--dot-color) 1.2px, transparent 1.2px);
-  background-size: 15px 15px;
 }
