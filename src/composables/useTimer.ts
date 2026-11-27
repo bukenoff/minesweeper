@@ -12,6 +12,7 @@ export function useTimer(state: () => GameState) {
       intervalId = setInterval(() => (time.value += 1), 1000)
     } else if (newState === 'pending') {
       time.value = 0
+      clearInterval(intervalId)
     } else {
       clearInterval(intervalId)
     }

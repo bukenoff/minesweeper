@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { Smile, Frown, Laugh } from '@lucide/vue'
-import { useBoard } from '../stores/board'
-import { useTimer } from '../composables/useTimer'
+import type { Difficulty, GameState } from '@/models/minesweeper'
 
-const boardStore = useBoard()
-const timerStore = useTimer(() => boardStore.state)
+const { state, difficulty, flagsLeft, time } = defineProps<{
+  state: GameState
+  difficulty: Difficulty
+  flagsLeft: number
+  time: number
+}>()
+
+const emit = defineEmits<{
+  restart: [value: Difficulty]
+}>()
 
 function onDifficultyChange(event: Event) {
   const value = (event.currentTarget as HTMLSelectElement).value
 
   if (value === 'easy' || value === 'normal' || value === 'hard') {
-    boardStore.restart(value)
+    emit('restart', value)
   } else {
     throw new Error('Unsupported difficulty level')
   }
@@ -19,25 +26,20 @@ function onDifficultyChange(event: Event) {
 
 <template>
   <div class="difficulty-select">
-    <select
-      id="difficulty-select"
-      name="select"
-      :value="boardStore.difficulty"
-      @change="onDifficultyChange"
-    >
+    <select id="difficulty-select" name="select" :value="difficulty" @change="onDifficultyChange">
       <option value="easy">easy</option>
       <option value="normal">medium</option>
       <option value="hard">hard</option>
     </select>
   </div>
   <div class="controls">
-    <span class="controls__counter">{{ String(boardStore.flagsLeft).padStart(3, '0') }}</span>
-    <button class="controls__restart-button" @click="boardStore.restart(boardStore.difficulty)">
-      <Laugh v-if="boardStore.state === 'victory'" :size="24" />
-      <Frown v-else-if="boardStore.state === 'loss'" :size="24" />
+    <span class="controls__counter">{{ String(flagsLeft).padStart(3, '0') }}</span>
+    <button class="controls__restart-button" @click="emit('restart', difficulty)">
+      <Laugh v-if="state === 'victory'" :size="24" />
+      <Frown v-else-if="state === 'loss'" :size="24" />
       <Smile v-else :size="24" />
     </button>
-    <span class="controls__counter">{{ String(timerStore.time.value).padStart(3, '0') }}</span>
+    <span class="controls__counter">{{ String(time).padStart(3, '0') }}</span>
   </div>
 </template>
 
